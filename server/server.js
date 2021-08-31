@@ -25,6 +25,10 @@ io.on("connection",(socket)=>{
     socket.on('chat',(message)=>{
         socket.to(getKeyByValue(user,message.id)).emit('received',{message:message,user:user[socket.id]})
     })
+    socket.on('send-file',(buffer,message)=>{
+        console.log(message)
+        socket.to(getKeyByValue(user,message.id)).emit('received-file',{message:message,user:user[socket.id],buffer:buffer})
+    })
 })
 
 function getKeyByValue(object, value) {
